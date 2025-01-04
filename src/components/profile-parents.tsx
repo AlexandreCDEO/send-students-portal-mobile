@@ -1,15 +1,12 @@
-import { useStudentProfile } from '@/contexts/student-profile-context'
 import { ParentList } from './parent-list'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
-import { Text } from 'react-native'
+import type { Parent } from './parent-card'
 
-export function ProfileParents() {
-  const { studentProfile } = useStudentProfile()
+interface ProfileParentsProps {
+  parents: Parent[]
+}
 
-  if (!studentProfile) return <Text>Carregando...</Text>
-
-  console.log('ProfileParents')
-
+export function ProfileParents({ parents }: ProfileParentsProps) {
   return (
     <Card>
       <CardHeader>
@@ -17,7 +14,7 @@ export function ProfileParents() {
       </CardHeader>
       <CardContent className="gap-4 native:gap-2">
         {/* biome-ignore lint/style/noNonNullAssertion: <explanation> */}
-        <ParentList parents={studentProfile.profile.parents!} />
+        <ParentList parents={parents!} />
       </CardContent>
     </Card>
   )

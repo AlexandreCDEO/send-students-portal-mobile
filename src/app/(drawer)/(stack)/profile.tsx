@@ -4,39 +4,27 @@ import { Text } from '@/components/ui/text'
 import { ProfileInfo } from '@/components/profile-info'
 import { ProfileAddresses } from '@/components/profile-addresses'
 import { ProfileParents } from '@/components/profile-parents'
-import { getStudentProfile } from '@/server/student/get-student-profile'
 import { useState, useEffect } from 'react'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { useQuery } from '@tanstack/react-query'
-import { useStudentProfile } from '@/contexts/student-profile-context'
+
 import { User, MapPin, Users } from 'lucide-react-native'
 import { colors } from '@/styles/colors'
 import { ProfileSkeleton } from '@/components/profile-skeleton'
+import { useStudentProfileData } from '@/hooks/student-profile-data'
 
 export default function Profile() {
   const [value, setValue] = useState('info')
   const [message, setMessage] = useState<string | null>(null)
-
-  const { handleSetStudentProfile } = useStudentProfile()
-
-  const {
-    data: studentProfileData,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ['student-profile'],
-    queryFn: getStudentProfile,
-  })
-
-  if (isError) setMessage(error.message)
+  const { profile, parents, addresses, isError, error } =
+    useStudentProfileData()
 
   useEffect(() => {
-    if (studentProfileData) {
-      handleSetStudentProfile(studentProfileData)
+    if (isError && error) {
+      setMessage(error.message)
     }
-  })
+  }, [isError, error])
 
-  if (!studentProfileData) {
+  if (!profile) {
     return <ProfileSkeleton />
   }
 
@@ -59,19 +47,20 @@ export default function Profile() {
             <Text>Informações</Text>
           </TabsTrigger>
 
-          <TabsTrigger
-            value="addresses"
-            className="flex-1 flex-row items-center gap-1.5"
-          >
-            <MapPin
-              size={16}
-              color={value === 'addresses' ? colors.blue.app : '#52525b'}
-            />
-            <Text>Endereços</Text>
-          </TabsTrigger>
+          {addresses.length > 0 && (
+            <TabsTrigger
+              value="addresses"
+              className="flex-1 flex-row items-center gap-1.5"
+            >
+              <MapPin
+                size={16}
+                color={value === 'addresses' ? colors.blue.app : '#52525b'}
+              />
+              <Text>Endereços</Text>
+            </TabsTrigger>
+          )}
 
-          {studentProfileData?.profile.parents &&
-          studentProfileData?.profile.parents.length > 0 ? (
+          {parents.length > 0 && (
             <TabsTrigger
               value="parent"
               className="flex-1 flex-row items-center gap-1.5"
@@ -82,7 +71,7 @@ export default function Profile() {
               />
               <Text>Genitores</Text>
             </TabsTrigger>
-          ) : null}
+          )}
         </TabsList>
         <ScrollView showsVerticalScrollIndicator={false}>
           <TabsContent value="info">
@@ -92,15 +81,15 @@ export default function Profile() {
                 <AlertDescription>{message}</AlertDescription>
               </Alert>
             )}
-            <ProfileInfo />
+            <ProfileInfo profile={profile} />
           </TabsContent>
 
           <TabsContent value="addresses">
-            <ProfileAddresses />
+            <ProfileAddresses addresses={addresses} />
           </TabsContent>
 
           <TabsContent value="parent">
-            <ProfileParents />
+            <ProfileParents parents={parents} />
           </TabsContent>
         </ScrollView>
       </Tabs>

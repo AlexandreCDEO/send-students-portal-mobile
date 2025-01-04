@@ -8,7 +8,6 @@ import { AuthContextProvider } from '@/contexts/auth-context'
 import { PortalHost } from '@rn-primitives/portal'
 
 import '../../global.css'
-import { StudentProfileProvider } from '@/contexts/student-profile-context'
 
 export default function RootLayout() {
   return (
@@ -18,10 +17,8 @@ export default function RootLayout() {
         <MenuProvider>
           <QueryClientProvider client={queryClient}>
             <AuthContextProvider>
-              <StudentProfileProvider>
-                <Slot />
-                <PortalHost />
-              </StudentProfileProvider>
+              <Slot />
+              <PortalHost />
             </AuthContextProvider>
           </QueryClientProvider>
         </MenuProvider>

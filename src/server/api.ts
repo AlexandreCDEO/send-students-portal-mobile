@@ -28,16 +28,13 @@ api.registerInterceptTokenManager = signOut => {
   const interceptTokenManager = api.interceptors.response.use(
     response => response,
     async requestError => {
-      console.log(requestError.response)
       if (requestError?.response?.status === 401) {
         if (
           requestError.response.data.messages[0] ===
           'Token de autenticação inválido ou ausente.'
         ) {
           const { refresh_token } = await storageAuthTokenGet()
-          console.log('refresh_token', refresh_token)
           if (!refresh_token) {
-            console.log('AQUI NAO TEM REFRESH TOKEN')
             signOut()
             return requestError.response?.data
               ? Promise.reject(

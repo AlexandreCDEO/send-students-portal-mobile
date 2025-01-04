@@ -1,21 +1,18 @@
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
-import AddressList from './address-list'
-import { useStudentProfile } from '@/contexts/student-profile-context'
-import { Text } from 'react-native'
+import AddressList, { type Address } from './address-list'
 
-export function ProfileAddresses() {
-  const { studentProfile } = useStudentProfile()
-  console.log('ProfileAddresses')
-  if (!studentProfile) return <Text>Carregando...</Text>
+interface ProfileAddressesProps {
+  addresses: Address[]
+}
 
+export function ProfileAddresses({ addresses }: ProfileAddressesProps) {
   return (
     <Card>
       <CardHeader>
         <CardTitle className="text-primary">Endereços</CardTitle>
       </CardHeader>
       <CardContent className="gap-4 native:gap-2">
-        {/* biome-ignore lint/style/noNonNullAssertion: <explanation> */}
-        <AddressList addresses={studentProfile.profile.addresses!} />
+        <AddressList addresses={addresses} />
       </CardContent>
     </Card>
   )
