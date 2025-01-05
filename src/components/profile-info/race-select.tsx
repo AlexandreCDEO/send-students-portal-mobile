@@ -48,13 +48,13 @@ export const RaceSelect = memo(
           render={({ field: { onChange, value } }) => (
             <>
               <Select
-                defaultValue={{
+                value={{
                   value: value.toString(),
                   label: currentRaceLabel,
                 }}
-                onValueChange={value => {
-                  onChange(value?.value ?? '99')
-                  setRaceSelected(value?.value ?? '99')
+                onValueChange={selected => {
+                  onChange(selected?.value ?? '99')
+                  setRaceSelected(selected?.value ?? '99')
                 }}
               >
                 <SelectTrigger className="w-full">

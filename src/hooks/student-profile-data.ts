@@ -4,27 +4,12 @@ import {
   getStudentProfile,
   type StudentProfileResponse,
 } from '@/server/student/get-student-profile'
-// import axios from 'axios';
-import { useEffect, useState } from 'react'
-
+import { useQuery } from '@tanstack/react-query'
 export function useStudentProfileData() {
-  const [data, setData] = useState<StudentProfileResponse | null>(null)
-  const [isError, setIsError] = useState(false)
-  const [error, setError] = useState<Error | null>(null)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getStudentProfile()
-        setData(response)
-      } catch (err) {
-        setIsError(true)
-        setError(err as Error)
-      }
-    }
-
-    fetchData()
-  }, [])
+  const { data, error, isError } = useQuery<StudentProfileResponse>({
+    queryFn: getStudentProfile,
+    queryKey: ['student-profile-data'],
+  })
 
   const profile = data
     ? {

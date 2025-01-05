@@ -4,7 +4,7 @@ import { Text } from '@/components/ui/text'
 import { ProfileInfo } from '@/components/profile-info'
 import { ProfileAddresses } from '@/components/profile-addresses'
 import { ProfileParents } from '@/components/profile-parents'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 
 import { User, MapPin, Users } from 'lucide-react-native'
@@ -14,15 +14,8 @@ import { useStudentProfileData } from '@/hooks/student-profile-data'
 
 export default function Profile() {
   const [value, setValue] = useState('info')
-  const [message, setMessage] = useState<string | null>(null)
   const { profile, parents, addresses, isError, error } =
     useStudentProfileData()
-
-  useEffect(() => {
-    if (isError && error) {
-      setMessage(error.message)
-    }
-  }, [isError, error])
 
   if (!profile) {
     return <ProfileSkeleton />
@@ -75,10 +68,10 @@ export default function Profile() {
         </TabsList>
         <ScrollView showsVerticalScrollIndicator={false}>
           <TabsContent value="info">
-            {message && (
+            {isError && (
               <Alert>
                 <AlertTitle>Ocorreu um erro</AlertTitle>
-                <AlertDescription>{message}</AlertDescription>
+                <AlertDescription>{error?.message}</AlertDescription>
               </Alert>
             )}
             <ProfileInfo profile={profile} />

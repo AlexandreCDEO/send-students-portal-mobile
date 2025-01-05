@@ -34,6 +34,7 @@ import type { ProfileInfoProps } from '@/types/profile/profile-info-props'
 import { RaceSelect } from './profile-info/race-select'
 import { ProfileInfoDocuments } from './profile-info/documents'
 import { ProfileInfoBirthplace } from './profile-info/birthplace'
+import { queryClient } from '@/lib/react-query'
 
 export function ProfileInfo({ profile }: ProfileInfoProps) {
   const router = useRouter()
@@ -103,6 +104,7 @@ export function ProfileInfo({ profile }: ProfileInfoProps) {
   const updateProfileMutation = useMutation({
     mutationFn: updateStudentProfile,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['student-profile-data'] })
       updateMessage(null)
       router.back()
     },
