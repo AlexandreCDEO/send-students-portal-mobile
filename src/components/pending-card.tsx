@@ -1,7 +1,6 @@
 import { AlertCircle } from 'lucide-react-native'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
-import { View, Text } from 'react-native'
-import { colors } from '@/styles/colors'
+import { Text } from 'react-native'
 
 export function PendingCard() {
   return (

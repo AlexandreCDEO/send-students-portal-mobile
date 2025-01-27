@@ -15,12 +15,12 @@ export function EvaluationItem({
 }: EvaluationItemProps) {
   return (
     <View className="flex-row justify-between items-center p-2 bg-gray-50 rounded-lg">
-      <View>
+      <View className="w-[80%]">
         <Text className="font-semibold text-gray-800">{discipline}</Text>
         <Text className="text-sm text-gray-600">{evaluation}</Text>
       </View>
-      <View className="text-right">
-        <Text className="font-semibold text-blue-600">{grade}</Text>
+      <View className=" w-[15%] text-right">
+        <Text className="font-semibold text-primary">{grade}</Text>
         <Text className="text-xs text-gray-500">Peso: {weight}</Text>
       </View>
     </View>

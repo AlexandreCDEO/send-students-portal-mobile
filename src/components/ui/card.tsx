@@ -16,6 +16,7 @@ const Card = React.forwardRef<ViewRef, ViewProps>(
     />
   )
 )
+
 Card.displayName = 'Card'
 
 const CardHeader = React.forwardRef<ViewRef, ViewProps>(

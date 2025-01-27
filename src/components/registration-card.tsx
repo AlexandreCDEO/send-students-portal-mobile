@@ -24,7 +24,7 @@ export default function RegistrationCard({
     onSuccess: data => {
       if (data.access_token && data.refresh_token) {
         handleSetMessage(null)
-        router.replace('/(drawer)/home')
+        router.replace('/(drawer)/home/dashboard')
       }
 
       handleSetMessage(

@@ -3,28 +3,29 @@ import { Badge } from './ui/badge'
 import { View, Text } from 'react-native'
 
 type RequirementItemProps = {
-  id: number
-  title: string
-  date: Date
-  status: string
+  requirement: number
+  date: Date | null
+  status: string | null
 }
 
 export function RequirementItem({
-  title,
+  requirement,
   date,
   status,
-  id,
 }: RequirementItemProps) {
   return (
-    <Link href="/(drawer)/academic-calendar" className="block">
-      <View className="flex-row justify-between items-center bg-gray-50 p-3 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+    <Link href="/(drawer)/academic-calendar">
+      <View className="flex-row w-full justify-between items-center bg-gray-50 p-3 rounded-lg hover:bg-gray-100 transition-colors duration-200">
         <View>
-          <Text className="font-semibold text-gray-800">{title}</Text>
+          <Text className="font-semibold text-gray-800">{requirement}</Text>
           <Text className="text-xs text-gray-500">
-            {date.toLocaleDateString('pt-BR')}
+            {/* biome-ignore lint/suspicious/noGlobalIsNan: <explanation> */}
+            {date && !isNaN(new Date(date).getTime())
+              ? new Date(date).toLocaleDateString('pt-BR')
+              : null}
           </Text>
         </View>
-        <Badge variant={status === 'Concluído' ? 'default' : 'secondary'}>
+        <Badge variant={status === 'FINALIZADA' ? 'default' : 'secondary'}>
           {status}
         </Badge>
       </View>

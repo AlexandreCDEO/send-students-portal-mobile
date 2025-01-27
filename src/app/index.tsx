@@ -13,7 +13,7 @@ export default function Index() {
         if (!access_token) {
           router.replace('/(auth)/authenticate')
         } else {
-          router.replace('/(drawer)/home')
+          router.replace('/(drawer)/home/dashboard')
         }
       } catch (error) {
         console.error('Erro ao verificar token do usuário: ', error)
