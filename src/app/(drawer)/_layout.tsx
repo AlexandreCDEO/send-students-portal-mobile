@@ -20,12 +20,12 @@ export default function DrawerLayout() {
         options={{ title: 'Início', iconName: 'home' } as CustomOptions}
       />
 
-      <Drawer.Screen
-        name="academic-calendar"
+      {/* <Drawer.Screen
+        name="student-card"
         options={
-          { title: 'Calendário Acadêmico', iconName: 'event' } as CustomOptions
+          { title: 'Cardteira Estudantil', iconName: 'event' } as CustomOptions
         }
-      />
+      /> */}
     </Drawer>
   )
 }
