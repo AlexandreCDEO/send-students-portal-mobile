@@ -1,6 +1,5 @@
-import { Text, View, Image, StyleSheet } from 'react-native'
+import { Text, View, Image } from 'react-native'
 import { DialogClose, DialogContent } from '@/components/ui/dialog'
-import { LinearGradient } from 'expo-linear-gradient'
 import { GraduationCap, QrCode, X } from 'lucide-react-native'
 import { colors } from '@/styles/colors'
 
