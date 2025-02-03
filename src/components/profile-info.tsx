@@ -1,5 +1,5 @@
-import React from 'react'
-import { View } from 'react-native'
+import type React from 'react'
+import { Pressable, View } from 'react-native'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card'
 import { Label } from './ui/label'
 import { Input } from './ui/input'
@@ -35,6 +35,10 @@ import { RaceSelect } from './profile-info/race-select'
 import { ProfileInfoDocuments } from './profile-info/documents'
 import { ProfileInfoBirthplace } from './profile-info/birthplace'
 import { queryClient } from '@/lib/react-query'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { Camera } from 'lucide-react-native'
+import { colors } from '@/styles/colors'
+import { StudentAvatar } from './profile-info/student-avatar'
 
 export function ProfileInfo({ profile }: ProfileInfoProps) {
   const router = useRouter()
@@ -167,8 +171,10 @@ export function ProfileInfo({ profile }: ProfileInfoProps) {
 
   return (
     <Card key={profile?.document ?? 'profile-info'}>
-      <CardHeader>
+      <CardHeader className="gap-4">
         <CardTitle className="text-primary">Informações Gerais</CardTitle>
+
+        <StudentAvatar name={profile?.name} document={formattedDocument} />
       </CardHeader>
       <CardContent className="gap-4 native:gap-2">
         {message && (
@@ -177,17 +183,6 @@ export function ProfileInfo({ profile }: ProfileInfoProps) {
             <AlertDescription>{message}</AlertDescription>
           </Alert>
         )}
-
-        {profile?.name ? (
-          <View className="gap-1">
-            <Label nativeID="name">Name</Label>
-            <Input
-              aria-aria-labelledby="name"
-              editable={false}
-              value={profile?.name ?? ''}
-            />
-          </View>
-        ) : null}
 
         {profile?.socialName ? (
           <View className="gap-1">
@@ -284,17 +279,6 @@ export function ProfileInfo({ profile }: ProfileInfoProps) {
               aria-aria-labelledby="birth"
               editable={false}
               value={new Date(profile?.birth).toLocaleDateString('pt-BR')}
-            />
-          </View>
-        ) : null}
-
-        {profile?.document ? (
-          <View className="gap-1">
-            <Label nativeID="document">CPF</Label>
-            <Input
-              aria-aria-labelledby="document"
-              editable={false}
-              value={formattedDocument}
             />
           </View>
         ) : null}
