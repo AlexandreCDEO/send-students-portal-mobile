@@ -1,5 +1,5 @@
 import type React from 'react'
-import { Pressable, View } from 'react-native'
+import { View } from 'react-native'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card'
 import { Label } from './ui/label'
 import { Input } from './ui/input'
@@ -35,9 +35,6 @@ import { RaceSelect } from './profile-info/race-select'
 import { ProfileInfoDocuments } from './profile-info/documents'
 import { ProfileInfoBirthplace } from './profile-info/birthplace'
 import { queryClient } from '@/lib/react-query'
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
-import { Camera } from 'lucide-react-native'
-import { colors } from '@/styles/colors'
 import { StudentAvatar } from './profile-info/student-avatar'
 
 export function ProfileInfo({ profile }: ProfileInfoProps) {
@@ -118,20 +115,17 @@ export function ProfileInfo({ profile }: ProfileInfoProps) {
     },
   })
 
-  const handleUpdateProfile = useCallback(
-    (data: UpdateProfileSchema) => {
-      updateProfileMutation.mutate({
-        gender: data.gender,
-        mail: data.mail,
-        race: data.race,
-        phone: {
-          ddd: data.phone.ddd,
-          number: data.phone.number,
-        },
-      })
-    },
-    [updateProfileMutation]
-  )
+  function handleUpdateProfile(data: UpdateProfileSchema) {
+    updateProfileMutation.mutate({
+      gender: data.gender,
+      mail: data.mail,
+      race: data.race,
+      phone: {
+        ddd: data.phone.ddd,
+        number: data.phone.number,
+      },
+    })
+  }
 
   useEffect(() => {
     if (genresData) {

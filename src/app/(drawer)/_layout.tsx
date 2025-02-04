@@ -26,6 +26,13 @@ export default function DrawerLayout() {
           { title: 'Notas e Faltas', iconName: 'menu-book' } as CustomOptions
         }
       />
+
+      <Drawer.Screen
+        name="student-installments"
+        options={
+          { title: 'Parcelas', iconName: 'event-repeat' } as CustomOptions
+        }
+      />
     </Drawer>
   )
 }

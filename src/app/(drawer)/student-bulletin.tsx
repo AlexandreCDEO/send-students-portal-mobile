@@ -16,47 +16,86 @@ type Semester = {
   subjects: Subject[]
 }
 
+const generateRandomGrade = () => Math.round(Math.random() * 10 * 10) / 10
+
+const generateSubject = (name: string, workload: number): Subject => {
+  const partialAverage = generateRandomGrade()
+  const finalAverage = generateRandomGrade()
+  return {
+    name,
+    workload,
+    partialAverage,
+    finalAverage,
+    absences: Math.floor(Math.random() * 15),
+    status: finalAverage > 6 ? 'Aprovado' : 'Reprovado',
+  }
+}
+
 const semesters: Semester[] = [
   {
     name: '1º Semestre',
     subjects: [
-      {
-        name: 'Matemática',
-        workload: 60,
-        partialAverage: 7.5,
-        finalAverage: 8.0,
-        absences: 4,
-        status: 'Aprovado',
-      },
-      {
-        name: 'Português',
-        workload: 60,
-        partialAverage: 6.5,
-        finalAverage: 7.0,
-        absences: 6,
-        status: 'Aprovado',
-      },
+      generateSubject('Matemática', 60),
+      generateSubject('Português', 60),
+      generateSubject('Introdução à Computação', 45),
+      generateSubject('Química', 50),
+      generateSubject('Biologia', 50),
+      generateSubject('Física', 60),
     ],
   },
   {
     name: '2º Semestre',
     subjects: [
-      {
-        name: 'História',
-        workload: 45,
-        partialAverage: 5.5,
-        finalAverage: 6.0,
-        absences: 8,
-        status: 'Aprovado',
-      },
-      {
-        name: 'Geografia',
-        workload: 45,
-        partialAverage: 4.5,
-        finalAverage: 5.5,
-        absences: 10,
-        status: 'Reprovado',
-      },
+      generateSubject('História', 45),
+      generateSubject('Geografia', 45),
+      generateSubject('Álgebra Linear', 60),
+      generateSubject('Programação I', 60),
+      generateSubject('Desenho Técnico', 50),
+      generateSubject('Sociologia', 40),
+    ],
+  },
+  {
+    name: '3º Semestre',
+    subjects: [
+      generateSubject('Cálculo I', 60),
+      generateSubject('Banco de Dados I', 60),
+      generateSubject('Redes de Computadores', 50),
+      generateSubject('Sistemas Operacionais', 60),
+      generateSubject('Física II', 50),
+      generateSubject('Lógica de Programação', 60),
+    ],
+  },
+  {
+    name: '4º Semestre',
+    subjects: [
+      generateSubject('Cálculo II', 60),
+      generateSubject('Banco de Dados II', 60),
+      generateSubject('Engenharia de Software', 60),
+      generateSubject('Inteligência Artificial', 60),
+      generateSubject('Administração de Sistemas', 50),
+      generateSubject('Segurança da Informação', 50),
+    ],
+  },
+  {
+    name: '5º Semestre',
+    subjects: [
+      generateSubject('Computação Gráfica', 50),
+      generateSubject('Programação II', 60),
+      generateSubject('Machine Learning', 60),
+      generateSubject('Estruturas de Dados', 60),
+      generateSubject('Desenvolvimento Web', 60),
+      generateSubject('Análise de Algoritmos', 50),
+    ],
+  },
+  {
+    name: '6º Semestre',
+    subjects: [
+      generateSubject('Projeto Integrador', 60),
+      generateSubject('Internet das Coisas', 60),
+      generateSubject('Sistemas Distribuídos', 60),
+      generateSubject('Computação em Nuvem', 60),
+      generateSubject('Empreendedorismo', 40),
+      generateSubject('Governança de TI', 50),
     ],
   },
 ]

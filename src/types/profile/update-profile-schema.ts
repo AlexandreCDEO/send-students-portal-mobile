@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const updateProfileSchema = z.object({
-  gender: z.number().int().min(1, 'Gênero é obrigatório'),
+  gender: z.number().optional(),
   mail: z.string().email('Email inválido').nonempty('Email é obrigatório'),
   phone: z.object({
     ddd: z.coerce

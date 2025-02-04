@@ -22,7 +22,7 @@ export default function Profile() {
   }
 
   return (
-    <View className="flex-1 px-6 py-10">
+    <View className="flex-1 px-6 py-10 mb-8">
       <Tabs
         value={value}
         onValueChange={setValue}
